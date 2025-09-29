@@ -1,195 +1,304 @@
+# LangChain Documentation Helper Bot 🦜🔗
 
-# 🦜 LangChain Documentation Helper
+An intelligent chatbot application that helps users navigate and query LangChain documentation using RAG (Retrieval-Augmented Generation) technology. The system crawls documentation, creates a vector database, and provides accurate answers with source citations through an interactive Streamlit interface.
 
-<div align="center">
+## Overview
 
-**An intelligent documentation assistant powered by LangChain and vector search**
+This project consists of two main components:
+1. **Ingestion Pipeline**: Crawls LangChain documentation, chunks content, and stores it in a vector database
+2. **Chat Interface**: Interactive Streamlit web app that answers user questions using the indexed documentation
 
-<p align="center">
-  <img src="static/Trimmed Padded Langchain.png" alt="LangChain Logo" width="180" style="margin: 0 10px;">
-  <img src="static/Tavily Logo Trimmed Padded.png" alt="Tavily Logo" width="180" style="margin: 0 10px;">
-</p>
+## Features
 
-<br>
+- 🔍 **Smart Documentation Search**: Uses vector similarity search to find relevant documentation sections
+- 💬 **Conversational Interface**: Maintains chat history for contextual responses
+- 📚 **Source Citations**: Provides source URLs for all answers
+- 🎨 **Modern Dark UI**: Clean, professional Streamlit interface with dark theme
+- ⚡ **Async Processing**: High-performance document ingestion with concurrent batch processing
+- 🔄 **Chat History Awareness**: Rephrases queries based on conversation context
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![LangChain](https://img.shields.io/badge/LangChain-🦜🔗-green.svg)](https://langchain.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B.svg)](https://streamlit.io/)
-[![Pinecone](https://img.shields.io/badge/Pinecone-🌲-orange.svg)](https://pinecone.io/)
-[![Tavily](https://img.shields.io/badge/Tavily-🔍-purple.svg)](https://app.tavily.com/home?utm_campaign=eden_marco&utm_medium=socials&utm_source=linkedin)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+## Tech Stack
 
-[![udemy](https://img.shields.io/badge/LangChain%20Udemy%20Course-%2412.99-green)](https://www.udemy.com/course/langchain/?couponCode=LANGCHAINCD8C0B4060)
+### Core Technologies
+- **Python 3.x**
+- **LangChain**: Framework for building LLM applications
+- **OpenAI GPT**: Language model for generating responses
+- **Streamlit**: Web interface framework
 
-</div>
+### Vector Storage & Embeddings
+- **ChromaDB**: Local vector database for document storage
+- **OpenAI Embeddings** (text-embedding-3-small): Document embedding model
 
-## 🎯 Overview
+### Web Crawling & Extraction
+- **Tavily API**: Advanced web crawling and content extraction
+  - TavilyCrawl: Website crawling
+  - TavilyExtract: Content extraction
+  - TavilyMap: Site mapping
 
-The **LangChain Documentation Helper** is a sophisticated AI-powered web application that serves as a slim version of [chat.langchain.com](https://chat.langchain.com/). This intelligent documentation assistant provides accurate answers to questions about LangChain documentation using advanced Retrieval-Augmented Generation (RAG) techniques, enhanced with web crawling capabilities and conversational memory.
+### Additional Libraries
+- **python-dotenv**: Environment variable management
+- **Pillow (PIL)**: Image processing for user avatars
+- **certifi**: SSL certificate handling
+- **requests**: HTTP requests for profile pictures
 
-### ✨ Key Features
+## Project Structure
 
-**RAG Pipeline Flow:**
+```
+.
+├── backend/
+│   ├── __init__.py
+│   └── core.py              # RAG chain logic and query processing
+├── chroma_db/               # Local vector database (generated)
+├── consts.py               # Configuration constants
+├── ingestion.py            # Documentation crawling and indexing
+├── logger.py               # Colored logging utilities
+├── main.py                 # Streamlit application entry point
+├── .env                    # Environment variables (not tracked)
+└── README.md              # This file
+```
 
-1. 🌐 **Web Crawling**: Real-time web scraping and content extraction using Tavily's advanced crawling capabilities
-2. 📚 **Document Processing**: Intelligent chunking and preprocessing of LangChain documentation
-3. 🔍 **Vector Storage**: Advanced embedding and indexing using Pinecone for fast similarity search
-4. 🎯 **Intelligent Retrieval**: Context-aware document retrieval based on user queries
-5. 🧩 **Memory System**: Conversational memory for coreference resolution and context continuity
-6. 🧠 **Context-Aware Generation**: Provides accurate, contextual answers with source citations
-7. 💬 **Interactive Interface**: User-friendly chat interface powered by Streamlit
-8. 🚀 **Real-time Processing**: Fast end-to-end pipeline from query to response
-
-## 🎬 Demo
-
-<div align="center">
-  <img src="static/banner.gif" alt="Documentation Helper Demo" width="700">
-  <p><em>Interactive demo showing the LangChain Documentation Helper in action</em></p>
-</div>
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-| Component | Technology | Description |
-|-----------|------------|-------------|
-| 🖥️ **Frontend** | Streamlit | Interactive web interface |
-| 🧠 **AI Framework** | LangChain 🦜🔗 | Orchestrates the AI pipeline |
-| 🔍 **Vector Database** | Pinecone 🌲 | Stores and retrieves document embeddings |
-| 🌐 **Web Crawling** | Tavily | Intelligent web scraping and content extraction |
-| 🧩 **Memory** | Conversational Memory | Coreference resolution and context continuity |
-| 🤖 **LLM** | OpenAI GPT | Powers the conversational AI |
-| 🐍 **Backend** | Python | Core application logic |
-
-</div>
-
-## 🚀 Quick Start
-
-### Prerequisites
+## Prerequisites
 
 - Python 3.8 or higher
 - OpenAI API key
-- Pinecone API key
-- [Tavily API key](https://app.tavily.com/home?utm_campaign=eden_marco&utm_medium=socials&utm_source=linkedin) (required - for documentation crawling and web search)
+- Tavily API key (for documentation crawling)
 
-### Installation
+## Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/emarco177/documentation-helper.git
-   cd documentation-helper
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/soroushr123/documentation-helper.git
+cd documentation-helper
+```
 
-2. **Set up environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   PINECONE_API_KEY=your_pinecone_api_key_here
-   OPENAI_API_KEY=your_openai_api_key_here
-   TAVILY_API_KEY=your_tavily_api_key_here  # Required - for documentation crawling
-   ```
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-3. **Install dependencies**
-   ```bash
-   pipenv install
-   ```
+3. Install dependencies:
+```bash
+pip install langchain langchain-openai langchain-community langchain-chroma \
+            langchain-pinecone langchain-tavily streamlit python-dotenv \
+            pillow certifi requests
+```
 
-4. **Ingest LangChain Documentation** (Run the ingestion pipeline)
-   ```bash
-   python ingestion.py  # Uses Tavily to crawl and index documentation
-   ```
+4. Create a `.env` file in the project root:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+```
 
-5. **Run the application**
-   ```bash
-   streamlit run main.py
-   ```
+## Usage
 
-6. **Open your browser** and navigate to `http://localhost:8501`
+### Step 1: Ingest Documentation
 
-## 🧪 Testing
-
-Run the test suite to ensure everything is working correctly:
+First, run the ingestion pipeline to crawl and index the LangChain documentation:
 
 ```bash
-pipenv run pytest .
+python ingestion.py
 ```
 
-## 📁 Project Structure
+This will:
+- Crawl the LangChain documentation site (https://python.langchain.com/)
+- Extract and chunk the content
+- Create embeddings and store them in ChromaDB
+- Display colored progress logs throughout the process
 
-```
-documentation-helper/
-├── backend/                          # Core backend logic
-│   ├── __init__.py
-│   └── core.py
-├── static/                           # Static assets (images, logos)
-│   ├── banner.gif
-│   ├── LangChain Logo.png
-│   ├── Tavily Logo.png
-│   ├── Tavily Logo Trimmed Padded.png
-│   └── Trimmed Padded Langchain.png
-├── chroma_db/                        # Local vector database
-├── main.py                           # Streamlit application entry point
-├── ingestion.py                      # Document ingestion pipeline
-├── consts.py                         # Configuration constants
-├── logger.py                         # Logging utilities
-├── Tavily Demo Tutorial.ipynb        # 📚 Tutorial: Introduction to Tavily API
-├── Tavily Crawl Demo Tutorial.ipynb  # 📚 Tutorial: Advanced Tavily crawling techniques
-└── requirements files                # Pipfile, Pipfile.lock
+**Note**: The ingestion process may take several minutes depending on the documentation size.
+
+### Step 2: Run the Chat Application
+
+Launch the Streamlit web interface:
+
+```bash
+streamlit run main.py
 ```
 
-### 📚 Tutorial Notebooks
+The application will open in your browser at `http://localhost:8501`
 
-The project includes comprehensive Jupyter notebooks that serve as hands-on tutorials:
+### Using the Chat Interface
 
-- **`Tavily Demo Tutorial.ipynb`**: Introduction to Tavily API basics and core functionality
-- **`Tavily Crawl Demo Tutorial.ipynb`**: Advanced tutorial covering Tavily's crawling capabilities, including TavilyMap and TavilyExtract features
+1. Enter your question in the text input field
+2. Click "Submit" or press Enter
+3. View the AI-generated answer with source citations
+4. Continue the conversation - the bot maintains context from previous messages
 
-These tutorials provide step-by-step guidance on integrating Tavily's powerful web search and crawling capabilities into your AI applications.
+## How It Works
 
-## 🔧 Configuration
+### Ingestion Pipeline (`ingestion.py`)
 
-### Environment Variables
+```
+1. TavilyCrawl → Crawls documentation website
+2. Text Splitting → Breaks documents into chunks (4000 chars, 200 overlap)
+3. Embeddings → Converts chunks to vector embeddings
+4. Vector Storage → Stores in ChromaDB for similarity search
+```
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `PINECONE_API_KEY` | Your Pinecone API key for vector storage | ✅ |
-| `OPENAI_API_KEY` | Your OpenAI API key for LLM access | ✅ |
-| `TAVILY_API_KEY` | Your Tavily API key for documentation crawling and web search | ✅ |
+### Query Processing (`backend/core.py`)
 
-## 🤝 Contributing
+```
+1. User Query → Received from Streamlit interface
+2. History-Aware Retrieval → Rephrases query based on chat history
+3. Vector Search → Finds relevant documentation chunks
+4. LLM Generation → Generates answer using retrieved context
+5. Source Attribution → Returns answer with source URLs
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+### Two RAG Implementations
 
-## 📚 Learning Resources
+The project includes two RAG chain implementations:
 
-This project is designed as a learning tool for understanding:
-- 🦜 LangChain framework implementation
-- 🔍 Vector search and embeddings
-- 💬 Conversational AI development
-- 🏗️ RAG (Retrieval-Augmented Generation) architecture
+**`run_llm()` - Production Version**
+- Uses `create_retrieval_chain` for streamlined RAG
+- Integrates history-aware retriever
+- Returns structured response with context and answer
 
-## 📄 License
+**`run_llm2()` - Alternative Implementation**
+- Uses LCEL (LangChain Expression Language) for more control
+- Custom chain composition with RunnablePassthrough
+- Returns both context and answer separately
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Configuration
 
-## 🌟 Support
+### Crawling Settings
+Modify in `ingestion.py`:
+```python
+tavily_crawl.invoke({
+    "url": "https://python.langchain.com/",
+    "max_depth": 2,              # How deep to crawl
+    "extract_depth": "advanced"   # Extraction detail level
+})
+```
 
-If you find this project helpful, please consider:
-- ⭐ Starring the repository
-- 🐛 Reporting issues
-- 💡 Contributing improvements
-- 📢 Sharing with others
+### Chunking Settings
+```python
+RecursiveCharacterTextSplitter(
+    chunk_size=4000,    # Size of each chunk
+    chunk_overlap=200   # Overlap between chunks
+)
+```
+
+### Model Settings
+```python
+ChatOpenAI(
+    model="gpt-4o-mini",  # or "gpt-4-turbo"
+    temperature=0,         # Deterministic responses
+    verbose=True          # Debug logging
+)
+```
+
+### Batch Processing
+```python
+await index_documents_async(
+    documents=splitted_docs,
+    batch_size=500  # Documents per batch
+)
+```
+
+## Customization
+
+### Changing Documentation Source
+
+Edit the URL in `ingestion.py`:
+```python
+res = tavily_crawl.invoke({
+    "url": "YOUR_DOCUMENTATION_URL",
+    "max_depth": 2,
+    "extract_depth": "advanced"
+})
+```
+
+### Styling the Interface
+
+Modify the CSS in `main.py`:
+```python
+st.markdown("""
+<style>
+    .stApp {
+        background-color: #1E1E1E;
+        color: #FFFFFF;
+    }
+    /* Add your custom styles */
+</style>
+""", unsafe_allow_html=True)
+```
+
+### User Profile
+
+Replace placeholder data in `main.py`:
+```python
+user_name = "Your Name"
+user_email = "your.email@example.com"
+```
+
+## Logging
+
+The project includes a custom logging system with color-coded output:
+
+- 🚀 **Purple**: Section headers
+- ℹ️ **Cyan**: Information messages
+- ✅ **Green**: Success messages
+- ⚠️ **Yellow**: Warnings
+- ❌ **Red**: Errors
+
+## Performance Optimization
+
+- **Async Processing**: Concurrent document indexing for faster ingestion
+- **Batch Processing**: Documents processed in batches of 500
+- **Embedding Optimization**: Chunk size of 50 for API efficiency
+- **Retry Logic**: 10-second minimum retry interval for rate limiting
+
+## Troubleshooting
+
+### SSL Certificate Errors
+The project includes SSL configuration using certifi:
+```python
+ssl_context = ssl.create_default_context(cafile=certifi.where())
+```
+
+### Vector Database Issues
+Delete and recreate the `chroma_db` directory:
+```bash
+rm -rf chroma_db
+python ingestion.py
+```
+
+### API Rate Limits
+- Reduce batch size in `index_documents_async()`
+- Increase retry intervals in OpenAIEmbeddings configuration
+
+## Alternative Vector Stores
+
+The code includes support for Pinecone (commented out):
+```python
+# Uncomment to use Pinecone instead of ChromaDB
+# vectorstore = PineconeVectorStore(
+#     index_name="langchain-docs-2025", 
+#     embedding=embeddings
+# )
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+[Specify your license here]
+
+## Acknowledgments
+
+- Built with [LangChain](https://github.com/langchain-ai/langchain)
+- Powered by [OpenAI](https://openai.com/)
+- Web crawling by [Tavily](https://tavily.com/)
+- UI framework by [Streamlit](https://streamlit.io/)
+
+## Support
+
+For issues or questions, please open an issue on GitHub or contact the maintainer.
 
 ---
 
-<div align="center">
-
-### 🔗 Connect with Me
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.udemy.com/course/langchain/?referralCode=D981B8213164A3EA91AC)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eden-marco/)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/EdenEmarco177)
-
-**Built with ❤️ by Eden Marco**
-
-</div>
+**Note**: Make sure to never commit your `.env` file with API keys to version control. Add it to `.gitignore` before pushing to GitHub.
